@@ -1,0 +1,199 @@
+/* Spot the Difference — The Curious Cottage. Warm paper-and-ink styling. */
+:root {
+  --ink: #3a2e22;
+  --ink-soft: #6b5a44;
+  --paper: #f7f0dd;
+  --paper-deep: #efe3c2;
+  --card: #fffaf0;
+  --accent: #e2725b;
+  --accent-dark: #c25a44;
+  --leaf: #5e8c4a;
+  --gold: #e9a13b;
+  --sky: #bcd9e8;
+  --ring: #2fa866;
+  --wrong: #d64541;
+  --shadow: 0 6px 24px rgba(58, 46, 34, 0.18);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 500px at 20% -10%, #ffe9b8 0%, transparent 60%),
+    radial-gradient(900px 500px at 90% 0%, #cfe8d8 0%, transparent 55%),
+    var(--paper);
+  color: var(--ink);
+  font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+  min-height: 100vh;
+}
+
+#app { max-width: 1240px; margin: 0 auto; padding: 14px 20px 22px; }
+
+/* ---- header / HUD ---- */
+#hud {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap;
+  background: var(--card);
+  border: 2px solid #e5d6ae;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 8px 14px;
+}
+
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; flex: none; }
+.brand-mark {
+  font-size: 28px;
+  background: #fdeecb;
+  border: 2px solid #e5d6ae;
+  border-radius: 50%;
+  width: 48px; height: 48px;
+  display: inline-flex; align-items: center; justify-content: center;
+  flex: none;
+}
+.brand h1 { margin: 0; font-size: 23px; letter-spacing: 0.5px; line-height: 1.1; white-space: nowrap; }
+.tagline { margin: 2px 0 0; font-size: 12px; color: var(--ink-soft); font-style: italic; white-space: nowrap; }
+
+.hud-stats { display: flex; gap: 8px; flex: 1; justify-content: center; flex-wrap: nowrap; }
+.stat {
+  background: var(--paper);
+  border: 2px solid #e5d6ae;
+  border-radius: 12px;
+  padding: 5px 10px;
+  text-align: center;
+  min-width: 78px;
+}
+.stat-label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ink-soft); }
+.stat-value { font-size: 20px; font-weight: 700; line-height: 1.15; white-space: nowrap; }
+.stat-value .of { color: var(--ink-soft); font-weight: 400; }
+.stat-sub { display: block; font-size: 12px; color: var(--ink-soft); }
+.stat-counter { border-color: var(--leaf); background: #eef5e4; }
+.stat-counter .stat-value { color: #3c6b2f; }
+
+.hud-actions { display: flex; gap: 8px; flex: none; }
+button {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  background: #fff;
+  border: 2px solid #d9c793;
+  border-radius: 10px;
+  padding: 7px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.08s ease, background 0.15s ease;
+}
+button:hover { background: #fdf3d0; transform: translateY(-1px); }
+button:active { transform: translateY(1px); }
+button:disabled { opacity: 0.45; cursor: default; transform: none; }
+#btn-hint { background: #ffe9a8; border-color: var(--gold); }
+
+/* ---- level tabs ---- */
+#level-tabs { display: flex; gap: 8px; justify-content: center; margin: 12px 0 4px; }
+.level-tab {
+  border-radius: 999px;
+  padding: 7px 16px;
+  background: var(--card);
+  font-size: 13px;
+}
+.level-tab.active { background: var(--accent); border-color: var(--accent-dark); color: #fff; }
+.level-tab.done::after { content: " ✓"; }
+
+/* ---- boards ---- */
+#boards {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+.panel { margin: 0; }
+.panel figcaption {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 15px; font-weight: 700;
+  padding: 0 4px 6px;
+}
+.panel-tag {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--accent); color: #fff; font-size: 14px;
+}
+#panel-right .panel-tag { background: #4a7fa5; }
+canvas {
+  display: block;
+  width: 560px; height: 420px;
+  border-radius: 14px;
+  border: 3px solid #d9c793;
+  box-shadow: var(--shadow);
+  background: #fff;
+  cursor: crosshair;
+}
+#versus {
+  align-self: center;
+  font-size: 22px; font-weight: 800; color: var(--accent);
+  background: var(--card);
+  border: 2px solid #e5d6ae;
+  border-radius: 50%;
+  width: 52px; height: 52px;
+  display: flex; align-items: center; justify-content: center;
+  flex: none;
+}
+
+/* ---- status bar ---- */
+#statusbar {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 12px;
+  background: var(--card);
+  border: 2px solid #e5d6ae;
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-size: 14px;
+}
+#status-message { color: var(--ink-soft); }
+#progress-dots { display: flex; gap: 6px; }
+.dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #e0d3ae; border: 1px solid #cbb87f;
+}
+.dot.found { background: var(--ring); border-color: #1f7a48; }
+.dot.hinted { background: var(--gold); border-color: #b97f22; animation: pulse 0.9s ease infinite alternate; }
+@keyframes pulse { from { transform: scale(1); } to { transform: scale(1.35); } }
+
+/* ---- overlay ---- */
+#overlay {
+  position: fixed; inset: 0;
+  background: rgba(58, 46, 34, 0.45);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 20;
+}
+#overlay.hidden, #toast.hidden { display: none; }
+#overlay-card {
+  background: var(--card);
+  border: 3px solid var(--gold);
+  border-radius: 20px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+  padding: 28px 36px;
+  text-align: center;
+  max-width: 480px;
+}
+#overlay-stars { font-size: 40px; letter-spacing: 6px; }
+#overlay-title { margin: 8px 0 4px; font-size: 28px; }
+#overlay-text { margin: 0 0 12px; color: var(--ink-soft); font-size: 15px; }
+#overlay-stats { font-size: 16px; line-height: 1.7; margin-bottom: 16px; }
+#overlay-stats b { color: var(--accent-dark); }
+.overlay-buttons { display: flex; gap: 10px; justify-content: center; }
+#btn-next { background: var(--accent); border-color: var(--accent-dark); color: #fff; font-size: 16px; padding: 10px 20px; }
+
+/* ---- toast ---- */
+#toast {
+  position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%);
+  background: var(--ink); color: #fff;
+  padding: 10px 18px; border-radius: 999px;
+  font-size: 15px; font-weight: 700;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  z-index: 30;
+  pointer-events: none;
+}

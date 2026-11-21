@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spot the Difference — The Curious Cottage</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header id="hud">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">&#128269;</span>
+      <div>
+        <h1>Spot the Difference</h1>
+        <p class="tagline">Two pictures, one sneaky artist. Find every change.</p>
+      </div>
+    </div>
+    <div class="hud-stats">
+      <div class="stat" id="stat-level" title="Current scene">
+        <span class="stat-label">Scene</span>
+        <span class="stat-value" id="level-name">Cottage Garden</span>
+      </div>
+      <div class="stat stat-counter" id="stat-found" title="Differences found">
+        <span class="stat-label">Found</span>
+        <span class="stat-value"><span id="found-count">0</span><span class="of"> / </span><span id="total-count">8</span></span>
+        <span class="stat-sub" id="remain-count">8 to go</span>
+      </div>
+      <div class="stat" title="Time on this scene">
+        <span class="stat-label">Time</span>
+        <span class="stat-value" id="timer">00:00</span>
+      </div>
+      <div class="stat" title="Wrong clicks">
+        <span class="stat-label">Misses</span>
+        <span class="stat-value" id="miss-count">0</span>
+      </div>
+    </div>
+    <div class="hud-actions">
+      <button id="btn-hint" type="button" title="Hint (H) — 3 per scene">&#128161; Hint <span id="hint-count">(3)</span></button>
+      <button id="btn-sound" type="button" title="Sound on/off (M)">&#128266; Sound</button>
+      <button id="btn-restart" type="button" title="Restart scene (R)">&#8635; Restart</button>
+    </div>
+  </header>
+
+  <nav id="level-tabs" aria-label="Scenes">
+    <button type="button" class="level-tab active" data-level="0">1 · Cottage Garden</button>
+    <button type="button" class="level-tab" data-level="1">2 · Seaside Picnic</button>
+    <button type="button" class="level-tab" data-level="2">3 · Moonlit Library</button>
+  </nav>
+
+  <main id="boards">
+    <figure class="panel" id="panel-left">
+      <figcaption><span class="panel-tag">A</span> Original</figcaption>
+      <canvas id="canvas-left" width="560" height="420"></canvas>
+    </figure>
+    <div id="versus" aria-hidden="true">VS</div>
+    <figure class="panel" id="panel-right">
+      <figcaption><span class="panel-tag">B</span> The Copy</figcaption>
+      <canvas id="canvas-right" width="560" height="420"></canvas>
+    </figure>
+  </main>
+
+  <footer id="statusbar">
+    <span id="status-message">Click a difference on either picture — a green ring marks it on both.</span>
+    <span id="progress-dots" aria-hidden="true"></span>
+  </footer>
+
+  <div id="overlay" class="hidden" role="dialog" aria-modal="true">
+    <div id="overlay-card">
+      <div id="overlay-stars" aria-hidden="true"></div>
+      <h2 id="overlay-title">Scene complete!</h2>
+      <p id="overlay-text"></p>
+      <div id="overlay-stats"></div>
+      <div class="overlay-buttons">
+        <button id="btn-next" type="button">Next scene &#8594;</button>
+        <button id="btn-replay" type="button">Play again</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="hidden" aria-live="polite"></div>
+</div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
